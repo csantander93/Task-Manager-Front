@@ -29,3 +29,14 @@
     padding: 20px;
   }
   
+  @media (max-width: 768px) {
+    .header {
+      justify-content: center; /* Alinea el contenido al centro en pantallas pequeñas */
+    }
+  
+    .logout-button {
+      width: 100%;
+      text-align: center; /* Centra el texto del botón */
+      max-width: 300px; /* Limita el tamaño máximo del botón */
+    }
+  }

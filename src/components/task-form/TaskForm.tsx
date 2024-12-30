@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TCreateTask } from "../../models/types/req/TCreateTask";
 import TaskService from "../../services/TaskService";
 import { useAuth } from "../../context/UserContext/UserContext"; // Importa el contexto de autenticación
+import Loading from "../../components/loading/Loading"; // Importa el componente Loading
 import "./TaskForm.css"; // Asegúrate de que el nombre coincida con el archivo actualizado
 
 interface TaskFormProps {
@@ -78,6 +79,9 @@ const TaskForm: React.FC<TaskFormProps> = ({ onClose, onTaskCreated }) => {
           </button>
         </div>
       </div>
+      
+      {/* Mostrar el Loading cuando se está creando la tarea */}
+      {isSubmitting && <Loading />}
     </div>
   );
 };

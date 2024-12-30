@@ -147,6 +147,52 @@ button svg {
   font-size: 1.5rem; /* Ajusta el tamaño del icono */
 }
 
+.delete-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.delete-confirmation-modal .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.delete-confirmation-modal .modal-actions button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-confirmation-modal .modal-actions button:nth-child(2) {
+  background-color: red; /* Color de fondo rojo para el botón de eliminar */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+}
+
+.delete-confirmation-modal .modal-actions button:nth-child(2):hover {
+  background-color: darkred; /* Color cuando el botón está en hover */
+}
+
+.delete-confirmation-modal .modal-actions button:disabled {
+  background-color: lightgray; /* Fondo gris cuando el botón está deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor cuando el botón está deshabilitado */
+}
+
+
+
 /* Media Queries para pantallas pequeñas */
 
 @media (max-width: 768px) {
@@ -217,6 +263,13 @@ button svg {
 
   .task-table td button {
     width: 100%;
+  }
+
+  .task-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
   }
 }
 

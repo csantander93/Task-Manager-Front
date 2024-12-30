@@ -10,10 +10,13 @@ import { TTask } from "../../models/types/entities/TTask";
 const TaskTable: React.FC = () => {
   const { tasks, fetchTasks, deleteTaskById } = useTask();
   const [filter, setFilter] = useState<"all" | "completed" | "pending">("all");
-  const [showAddTaskForm, setShowAddTaskForm] = useState(false); // Formulario para agregar tarea
-  const [showEditTaskForm, setShowEditTaskForm] = useState(false); // Formulario para editar tarea
-  const [selectedTask, setSelectedTask] = useState<TTask | null>(null); // Tarea seleccionada
+  const [showAddTaskForm, setShowAddTaskForm] = useState(false);
+  const [showEditTaskForm, setShowEditTaskForm] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<TTask | null>(null);
   const [openDescription, setOpenDescription] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); // Nuevo estado para confirmar la eliminación
+  const [taskToDelete, setTaskToDelete] = useState<TTask | null>(null); // Tarea seleccionada para eliminación
+  const [isLoading, setIsLoading] = useState(false); // Estado para manejar el loading
 
   const filteredTasks = tasks?.filter((task) => {
     if (filter === "completed") return task.completed;
@@ -22,27 +25,33 @@ const TaskTable: React.FC = () => {
   });
 
   const deleteTask = async (taskId: string) => {
-    await deleteTaskById(taskId);
+    if (taskId) {
+      setIsLoading(true); // Activa el loading
+      await deleteTaskById(taskId);
+      setShowDeleteConfirmation(false); // Cierra el modal de confirmación
+      fetchTasks(); // Actualiza la lista de tareas
+      setIsLoading(false); // Desactiva el loading
+    }
   };
 
   const editTask = (task: TTask) => {
-    setSelectedTask(task); // Establece la tarea seleccionada
-    setShowEditTaskForm(true); // Muestra el formulario de edición
+    setSelectedTask(task);
+    setShowEditTaskForm(true);
   };
 
   const handleAddTask = () => {
-    setShowAddTaskForm(true); // Muestra el formulario de agregar tarea
+    setShowAddTaskForm(true);
   };
 
   const handleCloseForm = () => {
-    setShowAddTaskForm(false); // Cierra el formulario de agregar tarea
-    setShowEditTaskForm(false); // Cierra el formulario de edición
-    setSelectedTask(null); // Reinicia la tarea seleccionada
+    setShowAddTaskForm(false);
+    setShowEditTaskForm(false);
+    setSelectedTask(null);
   };
 
   const handleTaskCreated = () => {
     fetchTasks();
-    setShowAddTaskForm(false); // Cierra el formulario de agregar tarea después de crear
+    setShowAddTaskForm(false);
   };
 
   const handleViewDescription = (task: TTask) => {
@@ -57,14 +66,18 @@ const TaskTable: React.FC = () => {
 
   const handleTaskUpdated = () => {
     fetchTasks();
-    setShowEditTaskForm(false); // Cierra el formulario de edición después de la actualización
+    setShowEditTaskForm(false);
+  };
+
+  const handleConfirmDelete = (task: TTask) => {
+    setTaskToDelete(task); // Guarda la tarea a eliminar
+    setShowDeleteConfirmation(true); // Muestra el modal de confirmación
   };
 
   return (
     <div className="task-table-container">
       <div className="task-header">
         <h1>Task Manager</h1>
-        {/* Botón para nueva tarea, solo visible si no hay formularios abiertos */}
         {!showAddTaskForm && !showEditTaskForm && (
           <button className="add-task-button" onClick={handleAddTask}>
             <Add className="add-icon" />
@@ -73,21 +86,18 @@ const TaskTable: React.FC = () => {
         )}
       </div>
 
-      {/* Formulario de agregar tarea */}
       {showAddTaskForm && (
         <TaskForm onClose={handleCloseForm} onTaskCreated={handleTaskCreated} />
       )}
 
-      {/* Formulario de editar tarea */}
       {showEditTaskForm && selectedTask && (
         <TaskFormEdit
           onClose={handleCloseForm}
           onTaskUpdated={handleTaskUpdated}
-          task={selectedTask} // Pasa la tarea seleccionada a TaskFormEdit
+          task={selectedTask}
         />
       )}
 
-      {/* Si no hay formularios abiertos, muestra la tabla de tareas */}
       {!showAddTaskForm && !showEditTaskForm && (
         <>
           <div className="filter-container">
@@ -141,7 +151,7 @@ const TaskTable: React.FC = () => {
                       </button>
                       <button
                         className="delete"
-                        onClick={() => deleteTask(task._id)}
+                        onClick={() => handleConfirmDelete(task)} // Muestra el modal de confirmación
                       >
                         <Delete />
                       </button>
@@ -164,6 +174,28 @@ const TaskTable: React.FC = () => {
           onClose={handleCloseDescription}
           taskDescription={selectedTask.description}
         />
+      )}
+
+      {/* Modal de Confirmación para Borrar */}
+      {showDeleteConfirmation && taskToDelete && (
+        <div className="delete-confirmation-modal">
+          <div className="modal-content">
+            <h2>¿Estás seguro que deseas eliminar esta tarea?</h2>
+            <p>{taskToDelete.title}</p>
+            <div className="modal-actions">
+              <button onClick={() => setShowDeleteConfirmation(false)}>
+                Cancelar
+              </button>
+              <button
+                onClick={() => deleteTask(taskToDelete._id)} // Procede a eliminar la tarea
+                disabled={isLoading} // Desactiva el botón mientras se carga
+                className="delete-button" // Clase para el botón de eliminación
+              >
+                {isLoading ? "Eliminando..." : "Eliminar"} {/* Texto del botón según el estado */}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
