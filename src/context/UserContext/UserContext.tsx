@@ -36,7 +36,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (signInForm: TSignIn) => {
     try {
       const response = await UserService.login(signInForm);
-      const userData: TUser = response.data; // Asume que la respuesta contiene los datos del usuario
+      console.log(response);  // Verificar la respuesta
+      const userData: TUser = response.data;
       setUser(userData);
       return true;
     } catch (error) {
