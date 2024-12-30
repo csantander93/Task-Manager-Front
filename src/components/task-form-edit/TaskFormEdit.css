@@ -20,18 +20,18 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 400px;
   max-width: 90%;
-  max-height: 80%;
-  overflow-y: auto;
+  max-height: 80%; /* Limita la altura del modal */
+  overflow-y: auto; /* Añade scroll si el contenido excede el tamaño */
   display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease; /* Transición para una animación más suave */
+  flex-direction: column; /* Para asegurarse de que el contenido dentro del modal fluya bien */
 }
 
-/* Estilos para las etiquetas y grupos de formulario */
+/* Estilo para cada grupo de formulario */
 .form-group {
   margin-bottom: 15px;
 }
 
+/* Etiquetas dentro de los grupos de formulario */
 .form-group label {
   display: block;
   margin-bottom: 5px;
@@ -45,66 +45,79 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  resize: none;
-  box-sizing: border-box;
+  resize: none; /* Evita que el textarea se pueda redimensionar manualmente */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
 }
 
-/* Estilo del textarea */
+/* Estilo para el textarea */
 .form-group textarea {
-  min-height: 100px;
-  max-height: 400px;
-  overflow-y: auto;
-  line-height: 1.5;
-  font-size: 14px;
+  min-height: 100px; /* Altura mínima */
+  max-height: 400px; /* Máxima altura (se puede ajustar según el diseño) */
+  overflow-y: auto; /* Permite desplazamiento vertical si el contenido es largo */
+  line-height: 1.5; /* Mejora la legibilidad del texto */
+  font-size: 14px; /* Tamaño de fuente adecuado */
 }
 
-/* Estilos de los botones */
+/* Estilos para los botones dentro del modal */
 .modal-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 20px; /* Agrega espacio entre el contenido y los botones */
 }
 
-.modal-actions button {
+/* Botón de cerrar (primero) */
+.modal-actions button:first-child {
+  background-color: #ccc;
+  color: #333;
+}
+
+/* Botón de guardar/cancelar (último) */
+.modal-actions button:last-child {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Hover para el botón de guardar */
+.modal-actions button:last-child:hover {
+  background-color: #5cd65c;
+}
+
+/* Botón de eliminar (si es necesario) */
+.delete-button {
+  background-color: #dc3545;
+  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.modal-actions button:first-child {
-  background-color: #ccc;
-  color: #333;
+.delete-button:hover {
+  background-color: #e32f45;
 }
 
-.modal-actions button:last-child {
-  background-color: #28a745;
-  color: white;
-}
-
-.modal-actions button:last-child:hover {
-  background-color: #5cd65c;
-}
-
-/* Estilo para el checkbox */
+/* Estilo del contenedor para el checkbox de completado */
 .form-group input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  appearance: none;
+  appearance: none; /* Elimina los estilos predeterminados del navegador */
   background-color: #fff;
   border: 2px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  position: relative;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
+/* Cuando el checkbox está marcado */
 .form-group input[type="checkbox"]:checked {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #28a745; /* Verde cuando está marcado */
+  border-color: #28a745; /* Cambiar el borde a verde */
 }
 
+/* Añadir un ícono de "check" cuando está marcado */
 .form-group input[type="checkbox"]:checked::before {
-  content: '✔';
+  content: '✔'; /* Agregar un checkmark */
   color: white;
   font-size: 16px;
   position: absolute;
@@ -113,43 +126,84 @@
   transform: translate(-50%, -50%);
 }
 
-.form-group input[type="checkbox"]:hover {
-  border-color: #999;
+/* Cuando el checkbox no está marcado */
+.form-group input[type="checkbox"]:not(:checked) {
+  background-color: #fff;
+  border-color: #ddd;
 }
 
-/* Media Queries para hacer el formulario más responsivo en pantallas pequeñas */
+/* Añadir un cambio de color al pasar el mouse sobre el checkbox */
+.form-group input[type="checkbox"]:hover {
+  border-color: #999; /* Cambiar el borde al pasar el mouse */
+}
 
-/* Pantallas de 600px o menos (típicamente teléfonos móviles) */
-@media (max-width: 600px) {
+/* Estilo de texto que indica si la tarea está completada */
+.form-group label[for="completed"] {
+  font-size: 16px;
+  margin-left: 10px; /* Espacio entre el checkbox y el texto */
+  color: #333;
+  font-weight: bold;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE */
+@media (max-width: 768px) {
+  /* Modal más pequeño en pantallas pequeñas */
   .modal-content {
-    width: 90%; /* Reducción del ancho */
-    padding: 15px; /* Menos padding para mayor eficiencia */
+    width: 90%;
+    padding: 15px;
+  }
+
+  /* Etiquetas más pequeñas */
+  .form-group label {
+    font-size: 14px;
+  }
+
+  /* Ajustar tamaño de los inputs */
+  .form-group input,
+  .form-group textarea {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  /* Modificar el tamaño de los botones */
+  .modal-actions button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* Hacer que los botones de acción se apilen en pantallas pequeñas */
+  .modal-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-actions button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Ajustar los iconos de visibilidad de la contraseña */
+  .icon-view-pass {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Para pantallas muy pequeñas como teléfonos en modo retrato */
+  .modal-content {
+    width: 95%;
+    padding: 10px;
   }
 
   .form-group input,
   .form-group textarea {
-    padding: 8px; /* Reducir padding para una mejor visualización */
+    padding: 6px;
+    font-size: 12px;
   }
 
-  .modal-actions {
-    flex-direction: column; /* Los botones se apilan verticalmente */
-    align-items: center; /* Centrar los botones */
-  }
-
+  /* Hacer los botones más pequeños */
   .modal-actions button {
-    width: 100%; /* Los botones ocupan todo el ancho */
-    margin-bottom: 10px; /* Espaciado entre los botones */
-  }
-
-  .modal-actions button:last-child {
-    background-color: #28a745;
-  }
-
-  .modal-actions button:first-child {
-    background-color: #ccc;
-  }
-
-  .modal-actions button:last-child:hover {
-    background-color: #5cd65c;
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }
