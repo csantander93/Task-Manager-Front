@@ -72,12 +72,12 @@
 }
 
 .filter-tab:hover {
-  background-color: #db8f1e;
+  background-color: #ce5d40;
   color: white;
 }
 
 .filter-tab.active {
-  background-color: #db8f1e;
+  background-color: #ce5d40;
   color: white;
 }
 
