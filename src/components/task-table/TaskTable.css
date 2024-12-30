@@ -51,7 +51,7 @@
 }
 
 .add-task-button:hover {
-  background-color: #005a4e; /* Verde más oscuro al pasar el cursor */
+  background-color: #08e7ca; /* Verde más oscuro al pasar el cursor */
 }
 
 .add-task-button .material-icons {
@@ -138,7 +138,7 @@ button.view {
 }
 
 button.edit {
-  background-color: #0288d1;
+  background-color: #02d19d;
   color: #ffffff;
 }
 

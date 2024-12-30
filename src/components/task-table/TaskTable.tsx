@@ -143,15 +143,19 @@ const TaskTable: React.FC = () => {
                       <button
                         className="view"
                         onClick={() => handleViewDescription(task)}
+                        title="Ver"
                       >
                         <Visibility />
                       </button>
-                      <button className="edit" onClick={() => editTask(task)}>
+                      <button
+                        className="edit" onClick={() => editTask(task)}
+                        title="Editar">
                         <Edit />
                       </button>
                       <button
                         className="delete"
                         onClick={() => handleConfirmDelete(task)} // Muestra el modal de confirmación
+                        title="Eliminar"
                       >
                         <Delete />
                       </button>
