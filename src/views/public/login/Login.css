@@ -1,0 +1,126 @@
+.login-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    /* Elimina los márgenes por defecto del body */
+    padding: 0;
+    /* Elimina el padding por defecto del body */
+    overflow: hidden;
+    /* Evita que haya scroll horizontal o vertical */
+    background-image: url("../../../../public/imgs/task-manager.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    background-position: center;
+    /* Centra la imagen */
+    background-size: cover;
+  }
+  
+  .principal-box {
+    width: 420px;
+    height: max-content;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(238, 238, 238, 0.8); /* Color de fondo con transparencia */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  
+  .form-div {
+    padding: 40px;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ce5d40;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .input-container {
+    position: relative;
+  }
+  
+  .input {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+  }
+  
+  .input:focus {
+    border-color: rgb(255, 115, 0);
+    outline: none;
+  }
+  
+  .icon {
+    position: absolute;
+    top: 30%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+  
+  .icon-view-pass {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .icon-view-pass:hover {
+    border-radius: 5px;
+    background-color: #d6d6d6;
+  }
+  
+  .forgot-password-link {
+    text-decoration: none;
+    color: #082b8d;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  .forgot-password-link:hover {
+    color: #6f8dfb;
+  }
+  
+  .button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #ce5d40;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: rgb(255, 115, 0)
+  }
+  
+  .button:active {
+    background-color: rgb(255, 115, 0);
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+  }

@@ -1,0 +1,251 @@
+.task-table-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #fff; /* Fondo suave para el header */
+  padding: 10px;
+  border-radius: 8px;
+  flex-wrap: wrap; /* Para ajustar cuando la pantalla es pequeña */
+}
+
+.task-title {
+  max-width: 500px; /* Ajusta el ancho máximo según sea necesario */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tooltip {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+}
+
+.add-task-button {
+  background-color: #54b669; /* Azul para el botón */
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.add-task-button .material-icons {
+  margin-right: 8px;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Para que los botones se ajusten */
+}
+
+.filter-tab {
+  background-color: #f4f4f4;
+  padding: 12px 25px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.filter-tab:hover {
+  background-color: #ff5722;
+  color: white;
+}
+
+.filter-tab.active {
+  background-color: #ff5722;
+  color: white;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.task-table th {
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #76dfc8;
+}
+
+button:active {
+  background-color: #004085;
+}
+
+/* Botones de acciones específicas */
+button.view {
+  background-color: #007bff; /* Azul */
+  color: white;
+}
+
+button.view:hover {
+  background-color: #66b3ff; /* Azul más claro */
+}
+
+button.edit {
+  background-color: #40e0d0; /* Turquesa */
+  color: white;
+}
+
+button.edit:hover {
+  background-color: #80f0e0; /* Turquesa más claro */
+}
+
+button.delete {
+  background-color: #ff0000; /* Rojo */
+  color: white;
+}
+
+button.delete:hover {
+  background-color: #ff6666; /* Rojo más claro */
+}
+
+button svg {
+  font-size: 1.5rem; /* Ajusta el tamaño del icono */
+}
+
+/* Media Queries para pantallas pequeñas */
+
+@media (max-width: 768px) {
+  .task-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-task-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .filter-tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filter-tab {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    max-width: 300px; /* Limita el ancho máximo */
+    overflow: hidden; /* Oculta el texto desbordado */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos */
+    white-space: nowrap; /* Evita saltos de línea */
+  }
+
+  .task-table th,
+  .task-table td {
+    font-size: 0.9rem;
+    padding: 8px;
+    word-wrap: break-word; /* Divide el texto en palabras largas */
+  }
+
+  .task-table th {
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+    max-width: 300px; /* Limita el ancho de los botones */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Cambiar la visualización de la tabla a una estructura vertical (invertida) */
+  .task-table {
+    display: block;
+  }
+
+  .task-table th,
+  .task-table td {
+    display: block;
+    width: 100%;
+    text-align: right;
+  }
+
+  .task-table th {
+    text-align: left;
+  }
+
+  .task-table td {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .task-table td button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-table-container {
+    padding: 15px;
+  }
+
+  .filter-tab {
+    padding: 10px 20px;
+    font-size: 1rem;
+    max-width: 250px; /* Ajusta el ancho para pantallas más pequeñas */
+  }
+
+  .task-header h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .add-task-button {
+    font-size: 0.9rem;
+    padding: 8px;
+    max-width: 250px; /* Limita el ancho del botón */
+  }
+
+  button {
+    padding: 10px;
+    font-size: 0.9rem;
+    max-width: 250px; /* Ajusta el ancho del botón */
+  }
+}
