@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { TTask } from "../../models/types/entities/TTask"; // Asegúrate de importar el tipo de tarea correctamente
-import { TUpdateTask } from "../../models/types/req/TUpdateTask"; // Importa el tipo TUpdateTask
+import { TTask } from "../../models/types/entities/TTask"; 
+import { TUpdateTask } from "../../models/types/req/TUpdateTask"; 
 import TaskService from "../../services/TaskService";
 import { useAuth } from "../../context/UserContext/UserContext";
-import "./TaskFormEdit.css"; // Asegúrate de que el nombre coincida con el archivo actualizado
+import "./TaskFormEdit.css"; 
 
 interface TaskFormEditProps {
-  onClose: () => void; // Para cerrar el modal
-  onTaskUpdated: () => void; // Para recargar las tareas en la tabla después de la actualización
-  task: TTask; // La tarea que se va a editar
+  onClose: () => void; 
+  onTaskUpdated: () => void; 
+  task: TTask; 
 }
 
 const TaskFormEdit: React.FC<TaskFormEditProps> = ({ onClose, onTaskUpdated, task }) => {
-  const { user } = useAuth(); // Accede al usuario desde el contexto
+  const { user } = useAuth(); 
   const [taskName, setTaskName] = useState(task.title);
   const [taskDescription, setTaskDescription] = useState(task.description);
   const [taskCompleted, setTaskCompleted] = useState(task.completed);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Para manejar el estado de envío
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Se ejecuta cuando el modal se monta para cargar los datos de la tarea
   useEffect(() => {
     setTaskName(task.title);
     setTaskDescription(task.description);
@@ -26,7 +25,6 @@ const TaskFormEdit: React.FC<TaskFormEditProps> = ({ onClose, onTaskUpdated, tas
   }, [task]);
 
   const handleUpdateTask = async () => {
-    // Validación para asegurarse de que haya algún cambio antes de enviar
     const updateData: TUpdateTask = {};
 
     if (taskName.trim() !== task.title) {
@@ -41,7 +39,6 @@ const TaskFormEdit: React.FC<TaskFormEditProps> = ({ onClose, onTaskUpdated, tas
       updateData.completed = taskCompleted;
     }
 
-    // Si no hay cambios, no hacemos nada
     if (Object.keys(updateData).length === 0) {
       alert("No se han realizado cambios en la tarea.");
       return;
@@ -52,18 +49,17 @@ const TaskFormEdit: React.FC<TaskFormEditProps> = ({ onClose, onTaskUpdated, tas
       return;
     }
 
-    setIsSubmitting(true); // Desactivar botones mientras se procesa
+    setIsSubmitting(true);
 
     try {
-      // Llamar al servicio para actualizar la tarea con los campos modificados
-      await TaskService.updateTaskById(task._id, updateData); // Asumimos que TaskService.updateTask acepta el ID de la tarea y los campos a actualizar
-      onTaskUpdated(); // Notificar al componente padre que una tarea fue actualizada
-      onClose(); // Cerrar el modal
+      await TaskService.updateTaskById(task._id, updateData); 
+      onTaskUpdated(); 
+      onClose(); 
     } catch (error) {
       console.error("Error actualizando la tarea:", error);
       alert("Ocurrió un error al actualizar la tarea. Por favor, inténtalo de nuevo.");
     } finally {
-      setIsSubmitting(false); // Reactivar botones
+      setIsSubmitting(false);
     }
   };
 
@@ -78,7 +74,7 @@ const TaskFormEdit: React.FC<TaskFormEditProps> = ({ onClose, onTaskUpdated, tas
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
             placeholder="Ingrese el nombre de la tarea"
-            disabled={isSubmitting} // Desactivar mientras se envía
+            disabled={isSubmitting}
           />
         </div>
         <div className="form-group">
@@ -87,17 +83,22 @@ const TaskFormEdit: React.FC<TaskFormEditProps> = ({ onClose, onTaskUpdated, tas
             value={taskDescription}
             onChange={(e) => setTaskDescription(e.target.value)}
             placeholder="Ingrese una descripción"
-            disabled={isSubmitting} // Desactivar mientras se envía
+            disabled={isSubmitting}
           ></textarea>
         </div>
         <div className="form-group">
           <label>Completada:</label>
-          <input
-            type="checkbox"
-            checked={taskCompleted}
-            onChange={(e) => setTaskCompleted(e.target.checked)}
-            disabled={isSubmitting} // Desactivar mientras se envía
-          />
+          <div className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={taskCompleted}
+              onChange={(e) => setTaskCompleted(e.target.checked)}
+              disabled={isSubmitting}
+              className="checkbox-input"
+            />
+            <span className="switch"></span>
+            <span className="status-text">{taskCompleted ? "Completada" : "Pendiente"}</span>
+          </div>
         </div>
         <div className="modal-actions">
           <button onClick={onClose} disabled={isSubmitting}>

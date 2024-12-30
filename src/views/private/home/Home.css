@@ -1,0 +1,31 @@
+/* Header que ocupa todo el ancho de la página */
+.header {
+    width: 100%;
+    background-color: #f0f0f0; /* Color gris claro */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+  }
+  
+  /* Estilos del botón de logout */
+  .logout-button {
+    background-color: #db8f1e; /* Color del botón */
+    color: white;
+    border: none;
+    padding: 5px 15px; /* Tamaño más pequeño */
+    font-size: 0.9rem; /* Font más pequeño */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #f5c987; /* Color del botón al pasar el cursor */
+  }
+  
+  .home-container {
+    padding: 20px;
+  }
+  
