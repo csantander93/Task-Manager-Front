@@ -1,17 +1,18 @@
-// src/components/task-table/TaskTable.tsx
 import React, { useState } from "react";
 import { useTask } from "../../context/TaskContext/TaskContext";
 import { Add, Edit, Visibility, Delete } from "@mui/icons-material";
 import TaskForm from "../task-form/TaskForm";
 import TaskDescription from "../task-description/TaskDescription";
+import TaskFormEdit from "../task-form-edit/TaskFormEdit";
 import "./TaskTable.css";
 import { TTask } from "../../models/types/entities/TTask";
 
 const TaskTable: React.FC = () => {
   const { tasks, fetchTasks, deleteTaskById } = useTask();
   const [filter, setFilter] = useState<"all" | "completed" | "pending">("all");
-  const [showForm, setShowForm] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<any | null>(null);
+  const [showAddTaskForm, setShowAddTaskForm] = useState(false); // Formulario para agregar tarea
+  const [showEditTaskForm, setShowEditTaskForm] = useState(false); // Formulario para editar tarea
+  const [selectedTask, setSelectedTask] = useState<TTask | null>(null); // Tarea seleccionada
   const [openDescription, setOpenDescription] = useState(false);
 
   const filteredTasks = tasks?.filter((task) => {
@@ -21,25 +22,27 @@ const TaskTable: React.FC = () => {
   });
 
   const deleteTask = async (taskId: string) => {
-    console.log("tarea --> " + taskId)
-    await deleteTaskById(taskId); // Llamamos al método del contexto para eliminar la tarea
+    await deleteTaskById(taskId);
   };
 
-  const editTask = (taskId: string) => {
-    console.log(`Editando tarea con ID: ${taskId}`);
+  const editTask = (task: TTask) => {
+    setSelectedTask(task); // Establece la tarea seleccionada
+    setShowEditTaskForm(true); // Muestra el formulario de edición
   };
 
   const handleAddTask = () => {
-    setShowForm(true);
+    setShowAddTaskForm(true); // Muestra el formulario de agregar tarea
   };
 
   const handleCloseForm = () => {
-    setShowForm(false);
+    setShowAddTaskForm(false); // Cierra el formulario de agregar tarea
+    setShowEditTaskForm(false); // Cierra el formulario de edición
+    setSelectedTask(null); // Reinicia la tarea seleccionada
   };
 
   const handleTaskCreated = () => {
     fetchTasks();
-    setShowForm(false);
+    setShowAddTaskForm(false); // Cierra el formulario de agregar tarea después de crear
   };
 
   const handleViewDescription = (task: TTask) => {
@@ -52,11 +55,17 @@ const TaskTable: React.FC = () => {
     setSelectedTask(null);
   };
 
+  const handleTaskUpdated = () => {
+    fetchTasks();
+    setShowEditTaskForm(false); // Cierra el formulario de edición después de la actualización
+  };
+
   return (
     <div className="task-table-container">
       <div className="task-header">
         <h1>Task Manager</h1>
-        {!showForm && (
+        {/* Botón para nueva tarea, solo visible si no hay formularios abiertos */}
+        {!showAddTaskForm && !showEditTaskForm && (
           <button className="add-task-button" onClick={handleAddTask}>
             <Add className="add-icon" />
             <span>Nueva Tarea</span>
@@ -64,9 +73,22 @@ const TaskTable: React.FC = () => {
         )}
       </div>
 
-      {showForm ? (
+      {/* Formulario de agregar tarea */}
+      {showAddTaskForm && (
         <TaskForm onClose={handleCloseForm} onTaskCreated={handleTaskCreated} />
-      ) : (
+      )}
+
+      {/* Formulario de editar tarea */}
+      {showEditTaskForm && selectedTask && (
+        <TaskFormEdit
+          onClose={handleCloseForm}
+          onTaskUpdated={handleTaskUpdated}
+          task={selectedTask} // Pasa la tarea seleccionada a TaskFormEdit
+        />
+      )}
+
+      {/* Si no hay formularios abiertos, muestra la tabla de tareas */}
+      {!showAddTaskForm && !showEditTaskForm && (
         <>
           <div className="filter-container">
             <div className="filter-tabs">
@@ -114,7 +136,7 @@ const TaskTable: React.FC = () => {
                       >
                         <Visibility />
                       </button>
-                      <button className="edit" onClick={() => editTask(task._id)}>
+                      <button className="edit" onClick={() => editTask(task)}>
                         <Edit />
                       </button>
                       <button
