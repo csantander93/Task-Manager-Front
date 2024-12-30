@@ -1,6 +1,7 @@
 .task-table-container {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   padding: 20px;
+  background-color: #f9f9f9; /* Fondo suave */
 }
 
 .task-header {
@@ -8,45 +9,54 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  background-color: #fff; /* Fondo suave para el header */
-  padding: 10px;
+  background-color: #ffffff;
+  padding: 15px;
   border-radius: 8px;
-  flex-wrap: wrap; /* Para ajustar cuando la pantalla es pequeña */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  flex-wrap: wrap;
 }
 
 .task-title {
-  max-width: 500px; /* Ajusta el ancho máximo según sea necesario */
+  max-width: 500px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
 }
 
 .tooltip {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+  padding: 8px 12px;
   border-radius: 4px;
-  font-size: 14px;
-  white-space: nowrap;
+  font-size: 0.9rem;
+  position: absolute;
   z-index: 1000;
-  pointer-events: none;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -120%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .add-task-button {
-  background-color: #54b669; /* Azul para el botón */
-  color: rgb(255, 255, 255);
+  background-color: #00796b; /* Verde elegante */
+  color: #ffffff;
   border: none;
-  padding: 10px;
+  padding: 12px 20px;
   cursor: pointer;
   border-radius: 5px;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.add-task-button:hover {
+  background-color: #005a4e; /* Verde más oscuro al pasar el cursor */
 }
 
 .add-task-button .material-icons {
   margin-right: 8px;
+  font-size: 1.2rem;
 }
 
 .filter-container {
@@ -56,103 +66,94 @@
 .filter-tabs {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Para que los botones se ajusten */
+  flex-wrap: wrap;
+  gap: 10px; /* Espaciado entre los botones */
 }
 
 .filter-tab {
-  background-color: #f4f4f4;
+  background-color: #eeeeee;
   padding: 12px 25px;
-  margin: 0 10px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  font-size: 1.1rem;
-  color: #555;
+  font-size: 1rem;
+  color: #555555;
+  transition: all 0.3s ease;
 }
 
-.filter-tab:hover {
-  background-color: #ce5d40;
-  color: white;
-}
-
+.filter-tab:hover,
 .filter-tab.active {
-  background-color: #ce5d40;
-  color: white;
+  background-color: #d84315;
+  color: #ffffff;
 }
 
 .task-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .task-table th,
 .task-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
+  padding: 12px;
   text-align: left;
+  border-bottom: 1px solid #dddddd;
 }
 
 .task-table th {
-  background-color: #f2f2f2;
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #444444;
+}
+
+.task-table td {
+  color: #666666;
 }
 
 button {
-  padding: 5px 10px;
+  padding: 8px 12px;
   margin: 5px;
   cursor: pointer;
-  background-color: #ff5722;
-  color: white;
   border: none;
   border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: #76dfc8;
+  filter: brightness(0.9);
 }
 
 button:active {
-  background-color: #004085;
+  transform: scale(0.98);
 }
 
-/* Botones de acciones específicas */
+/* Botones específicos */
 button.view {
-  background-color: #007bff; /* Azul */
-  color: white;
-}
-
-button.view:hover {
-  background-color: #66b3ff; /* Azul más claro */
+  background-color: #1976d2;
+  color: #ffffff;
 }
 
 button.edit {
-  background-color: #40e0d0; /* Turquesa */
-  color: white;
-}
-
-button.edit:hover {
-  background-color: #80f0e0; /* Turquesa más claro */
+  background-color: #0288d1;
+  color: #ffffff;
 }
 
 button.delete {
-  background-color: #ff0000; /* Rojo */
-  color: white;
+  background-color: #d32f2f;
+  color: #ffffff;
 }
 
-button.delete:hover {
-  background-color: #ff6666; /* Rojo más claro */
-}
-
-button svg {
-  font-size: 1.5rem; /* Ajusta el tamaño del icono */
-}
-
+/* Modal de confirmación */
 .delete-confirmation-modal {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,41 +161,28 @@ button svg {
 }
 
 .delete-confirmation-modal .modal-content {
-  background: white;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .delete-confirmation-modal .modal-actions button {
   margin: 10px;
   padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
 }
 
 .delete-confirmation-modal .modal-actions button:nth-child(2) {
-  background-color: red; /* Color de fondo rojo para el botón de eliminar */
-  color: white; /* Texto blanco */
-  border: none; /* Sin borde */
+  background-color: #d32f2f;
 }
 
 .delete-confirmation-modal .modal-actions button:nth-child(2):hover {
-  background-color: darkred; /* Color cuando el botón está en hover */
+  background-color: #b71c1c;
 }
 
-.delete-confirmation-modal .modal-actions button:disabled {
-  background-color: lightgray; /* Fondo gris cuando el botón está deshabilitado */
-  cursor: not-allowed; /* Cambia el cursor cuando el botón está deshabilitado */
-}
-
-
-
-/* Media Queries para pantallas pequeñas */
-
+/* Estilo responsivo */
 @media (max-width: 768px) {
   .task-header {
     flex-direction: column;
@@ -203,102 +191,31 @@ button svg {
 
   .add-task-button {
     width: 100%;
-    text-align: center;
+    justify-content: center;
   }
 
   .filter-tabs {
     flex-direction: column;
-    width: 100%;
-  }
-
-  .filter-tab {
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: center;
-    max-width: 300px; /* Limita el ancho máximo */
-    overflow: hidden; /* Oculta el texto desbordado */
-    text-overflow: ellipsis; /* Agrega puntos suspensivos */
-    white-space: nowrap; /* Evita saltos de línea */
   }
 
   .task-table th,
   .task-table td {
     font-size: 0.9rem;
-    padding: 8px;
-    word-wrap: break-word; /* Divide el texto en palabras largas */
-  }
-
-  .task-table th {
-    text-align: center;
   }
 
   button {
     width: 100%;
-    margin-top: 10px;
-    max-width: 300px; /* Limita el ancho de los botones */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  /* Cambiar la visualización de la tabla a una estructura vertical (invertida) */
-  .task-table {
-    display: block;
-  }
-
-  .task-table th,
-  .task-table td {
-    display: block;
-    width: 100%;
-    text-align: right;
-  }
-
-  .task-table th {
-    text-align: left;
-  }
-
-  .task-table td {
-    border-bottom: 1px solid #ddd;
-  }
-
-  .task-table td button {
-    width: 100%;
-  }
-
-  .task-table td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    display: inline-block;
-    margin-right: 10px;
   }
 }
 
 @media (max-width: 480px) {
-  .task-table-container {
-    padding: 15px;
-  }
-
-  .filter-tab {
-    padding: 10px 20px;
-    font-size: 1rem;
-    max-width: 250px; /* Ajusta el ancho para pantallas más pequeñas */
-  }
-
   .task-header h1 {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
   }
 
-  .add-task-button {
-    font-size: 0.9rem;
-    padding: 8px;
-    max-width: 250px; /* Limita el ancho del botón */
-  }
-
+  .add-task-button,
+  .filter-tab,
   button {
-    padding: 10px;
-    font-size: 0.9rem;
-    max-width: 250px; /* Ajusta el ancho del botón */
+    font-size: 0.8rem;
   }
 }

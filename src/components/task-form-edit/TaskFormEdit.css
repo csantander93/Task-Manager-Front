@@ -188,7 +188,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 0px) {
   /* Para pantallas muy pequeñas como teléfonos en modo retrato */
   .modal-content {
     width: 95%;
