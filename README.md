@@ -73,7 +73,7 @@ Esto ejecutará la aplicación en http://localhost:3000.
 Desplegado
 La aplicación ya se encuentra desplegada y disponible para pruebas directamente desde la web. Puedes acceder a la versión desplegada en el siguiente enlace:
 
-URL de la aplicación: https://task-manager-front-nqqspayc2-csantander93s-projects.vercel.app/login
+URL de la aplicación: https://task-manager-front-lyart.vercel.app/
 Usuario de Prueba
 Importante: Las pruebas se deben realizar utilizando el siguiente usuario pre-cargado:
 
